@@ -57,7 +57,6 @@ namespace dsp::multirate {
             
             // Process data through each stage
             const T* data = in;
-            int last = stageCount - 1;
             for (int i = 0; i < stageCount; i++) {
                 auto fir = decimFirs[i];
                 count = fir->process(count, data, out);

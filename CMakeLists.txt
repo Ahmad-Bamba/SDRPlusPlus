@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.13)
 project(sdrpp)
 
+set(C_STANDARD   11)
+set(CXX_STANDARD 17)
+
 # Backends
 option(OPT_BACKEND_GLFW "Use the GLFW backend" ON)
 option(OPT_BACKEND_ANDROID "Use the Android backend" OFF)

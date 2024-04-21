@@ -6,7 +6,7 @@
 #include "buffer/buffer.h"
 
 // 1MSample buffer
-#define STREAM_BUFFER_SIZE 1000000
+static unsigned constexpr STREAM_BUFFER_SIZE = 1000000;
 
 namespace dsp {
     class untyped_stream {
@@ -18,6 +18,8 @@ namespace dsp {
         virtual void clearWriteStop() {}
         virtual void stopReader() {}
         virtual void clearReadStop() {}
+
+        virtual ~untyped_stream() = default;
     };
 
     template <class T>

@@ -6,13 +6,13 @@
 namespace dsp::multirate {
     template<class T>
     struct PolyphaseBank {
-        int phaseCount;
-        int tapsPerPhase;
+        unsigned phaseCount;
+        unsigned tapsPerPhase;
         T** phases;
     };
 
     template<class T>
-    inline PolyphaseBank<T> buildPolyphaseBank(int phaseCount, tap<T>& taps) {
+    inline PolyphaseBank<T> buildPolyphaseBank(unsigned phaseCount, tap<T>& taps) {
         // Allocate bank
         PolyphaseBank<T> pb;
         pb.phaseCount = phaseCount;
@@ -21,14 +21,14 @@ namespace dsp::multirate {
 
         // Allocate phases
         pb.tapsPerPhase = (taps.size + phaseCount - 1) / phaseCount;
-        for (int i = 0; i < phaseCount; i++) {
+        for (unsigned i = 0; i < phaseCount; i++) {
             pb.phases[i] = buffer::alloc<T>(pb.tapsPerPhase);
             buffer::clear<T>(pb.phases[i], pb.tapsPerPhase);
         }
 
         // Fill phases
-        int totTapCount = phaseCount * pb.tapsPerPhase;
-        for (int i = 0; i < totTapCount; i++) {
+        auto totTapCount = phaseCount * pb.tapsPerPhase;
+        for (unsigned i = 0; i < totTapCount; i++) {
             pb.phases[(phaseCount - 1) - (i % phaseCount)][i / phaseCount] = (i < taps.size) ? taps.taps[i] : 0;
         }
 
@@ -50,7 +50,7 @@ namespace dsp::multirate {
     template<class T>
     inline void freePolyphaseBank(PolyphaseBank<T>& bank) {
         if (!bank.phases) { return; }
-        for (int i = 0; i < bank.phaseCount; i++) {
+        for (unsigned i = 0; i < bank.phaseCount; i++) {
             if (!bank.phases[i]) { continue; }
             buffer::free(bank.phases[i]);
         }

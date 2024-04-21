@@ -12,6 +12,8 @@ namespace dsp {
         virtual void start() {}
         virtual void stop() {}
         virtual int run() { return -1; }
+
+        virtual ~generic_block() = default;
     };
 
     class block : public generic_block {
