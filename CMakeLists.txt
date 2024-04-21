@@ -60,10 +60,10 @@ option(USE_INTERNAL_LIBCORRECT "Use an internal version of libcorrect" ON)
 option(USE_BUNDLE_DEFAULTS "Set the default resource and module directories to the right ones for a MacOS .app" OFF)
 
 # Module cmake path
-set(SDRPP_MODULE_CMAKE "${CMAKE_SOURCE_DIR}/sdrpp_module.cmake")
+set(SDRPP_MODULE_CMAKE "${PROJECT_SOURCE_DIR}/sdrpp_module.cmake")
 
 # Root source folder
-set(SDRPP_CORE_ROOT "${CMAKE_SOURCE_DIR}/core/src/")
+set(SDRPP_CORE_ROOT "${PROJECT_SOURCE_DIR}/core/src/")
 
 # Compiler flags
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
@@ -305,21 +305,21 @@ endif ()
 # cmake .. "-DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake" -DOPT_BUILD_BLADERF_SOURCE=ON -DOPT_BUILD_LIMESDR_SOURCE=ON -DOPT_BUILD_SDRPLAY_SOURCE=ON -DOPT_BUILD_M17_DECODER=ON -DOPT_BUILD_SCANNER=ON -DOPT_BUILD_SCHEDULER=ON -DOPT_BUILD_USRP_SOURCE=ON
 
 # Create module cmake file
-configure_file(${CMAKE_SOURCE_DIR}/sdrpp_module.cmake ${CMAKE_CURRENT_BINARY_DIR}/sdrpp_module.cmake @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/sdrpp_module.cmake ${CMAKE_CURRENT_BINARY_DIR}/sdrpp_module.cmake @ONLY)
 
 # Install directives
 install(TARGETS sdrpp DESTINATION bin)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/bandplans DESTINATION share/sdrpp)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/colormaps DESTINATION share/sdrpp)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/fonts DESTINATION share/sdrpp)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/icons DESTINATION share/sdrpp)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/themes DESTINATION share/sdrpp)
-configure_file(${CMAKE_SOURCE_DIR}/sdrpp.desktop ${CMAKE_CURRENT_BINARY_DIR}/sdrpp.desktop @ONLY)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/root/res/bandplans DESTINATION share/sdrpp)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/root/res/colormaps DESTINATION share/sdrpp)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/root/res/fonts DESTINATION share/sdrpp)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/root/res/icons DESTINATION share/sdrpp)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/root/res/themes DESTINATION share/sdrpp)
+configure_file(${PROJECT_SOURCE_DIR}/sdrpp.desktop ${CMAKE_CURRENT_BINARY_DIR}/sdrpp.desktop @ONLY)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/sdrpp.desktop DESTINATION share/applications)
 endif ()
 
 # Create uninstall target
-configure_file(${CMAKE_SOURCE_DIR}/cmake_uninstall.cmake ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/cmake_uninstall.cmake ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake @ONLY)
 add_custom_target(uninstall ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
